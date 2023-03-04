@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Comment</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+ <body cz-shortcut-listen="true">
+  <div class="comments"></div>
+  <div class="likes"></div>
+
+  <input type="text" id="comment-input" placeholder="Ваш комментарий">
+  <button id="add-button">Добавить комментарий</button>
+
+  <script type="text/javascript">
+    var baseUrl = 'http://212.92.98.105';
+    var comment_id;
+    var likesCounter;
+// вывод комментариев
+    $.ajax({
+      url: baseUrl + '/comments',
+      success: function(data) {
+        console.log(data);
+        for(var key in data) {
+          // console.log(data[key].comment_id)
+          $('<div/>', {
+            class: 'comment ' + key, 
+            text: data[key].text
+          }).appendTo('.comments')//.after('<button class="del" value="' + data[key].comment_id + '">Удалить</button>').after('<button class="like "' + key + ' value="' + data[key].comment_id + '">Нравится</button>')
+        }
+      }
+    })
+// лайк коммента
+        $('.comment').after('<button class="like">Нравится</button>');
+            // $.ajax({
+            //   url: baseUrl + '/comments?comment_id=' + comment_id,
+            //   type: 'post',
+            //   success: function(data) {
+            //     // console.log(data);
+            //   }
+            // })  
+
+
+  
+// добавление комментария
+    $('#add-button').click(function() {
+      var text = $('#comment-input').val();
+
+      $.ajax({
+        url: baseUrl + '/comments?text=' + text,
+        type: 'post',
+        success: function(data) {
+          // console.log(data)
+
+          // 
+        }
+      })
+    })
+    
+// удаление комментариев
+    // $.ajax({
+    //   url: baseUrl + '/comments?comment_id=_1gtbcnde4',
+    //   type: 'post',
+    //   success: function(data) {
+    //     console.log(data); 
+    //   }
+    // })
+  </script>
+
+<div class="__disk_root__" style="position: static;"></div>
+</body>
+
+</html>
+
+
+</body>
+</html>
